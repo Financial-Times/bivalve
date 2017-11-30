@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@financial-times/n-es-client": "^1.5.1",
     "@quarterto/micro-cors": "^1.0.0",
+    "dotenv": "^4.0.0",
     "http-errors": "^1.6.2",
     "micro": "^9.0.2"
   },

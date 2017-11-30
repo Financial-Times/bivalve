@@ -4,6 +4,8 @@ const url = require('url');
 const {BadRequest} = require('http-errors');
 const cors = require('@quarterto/micro-cors');
 
+require('dotenv/config');
+
 module.exports = async (req, res) => {
 	await cors(req, res);
 
