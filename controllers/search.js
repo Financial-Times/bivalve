@@ -1,5 +1,3 @@
-
-
 module.exports = ({sort, outputfields, query, offset, limit}) => {
 	const date = (new Date().getTime() / 1000).toString();
 	return {
