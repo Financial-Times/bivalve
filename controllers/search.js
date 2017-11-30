@@ -8,7 +8,7 @@ module.exports = async ({sort, outputfields, query, offset, limit}) => {
 	});
 
 	return {
-		count: 1,
+		count: stream.length,
 		results: stream.map(item => ({
 			id: item.id,
 			abstract: item.openingHTML,
