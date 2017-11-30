@@ -2,8 +2,11 @@ const controllers = require('./controllers');
 const {send} = require('micro');
 const url = require('url');
 const {BadRequest} = require('http-errors');
+const cors = require('@quarterto/micro-cors');
 
 module.exports = async (req, res) => {
+	await cors(req, res);
+
 	const {query: {request}} = url.parse(req.url, true);
 	if(!request) throw new BadRequest();
 
@@ -11,9 +14,9 @@ module.exports = async (req, res) => {
 	if(!Array.isArray(requestArr)) throw new BadRequest();
 
 	return (await Promise.all(requestArr.map(
-		async ({action, args}) => {
+		async ({action, arguments}) => {
 			try {
-				const data = await controllers[action](args, {req, res});
+				const data = await controllers[action](arguments, {req, res});
 				return {data, status: 'ok'};
 			} catch(e) {
 				return {status: e.message};
