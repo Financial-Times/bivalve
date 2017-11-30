@@ -10,7 +10,7 @@ module.exports = async ({sort, outputfields, query, offset, limit}) => {
 	return {
 		count: 1,
 		results: stream.map(item => ({
-			// id: 12345,
+			id: item.id,
 			abstract: item.openingHTML,
 			content: item.bodyHTML,
 			attachments: [],
