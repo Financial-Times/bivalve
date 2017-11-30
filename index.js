@@ -16,6 +16,8 @@ module.exports = async (req, res) => {
 	return (await Promise.all(requestArr.map(
 		async ({action, arguments}) => {
 			try {
+				if(!controllers[action]) throw new Error(`No controller ${action}`);
+
 				const data = await controllers[action](arguments, {req, res});
 				return {data, status: 'ok'};
 			} catch(e) {
