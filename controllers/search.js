@@ -1,13 +1,25 @@
 const {search} = require('@financial-times/n-es-client');
 
-module.exports = async ({sort, outputfields, query, offset, limit}) => {
+const FASTFT_STREAM_ID = '5c7592a8-1f0c-11e4-b0cb-b2227cce2b54';
+
+const conceptsToTags = concepts =>
+	concepts
+		.filter(concept => concept.id !== FASTFT_STREAM_ID)
+		.map(concept => ({
+			tag: concept.prefLabel,
+			id: concept.id,
+			query: `concept:${concept.id}`,
+		}));
+
+module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}) => {
 	const stream = await search({
-		query: {'term': {'annotations.id': '5c7592a8-1f0c-11e4-b0cb-b2227cce2b54'}},
+		query: {'term': {'annotations.id': FASTFT_STREAM_ID}},
 		size: limit,
 		from: offset,
 	});
 
 	return {
+		original: showOriginal && stream,
 		count: stream.length,
 		results: stream.map(item => ({
 			id: item.id,
@@ -18,14 +30,12 @@ module.exports = async ({sort, outputfields, query, offset, limit}) => {
 			issticky: false,
 			datepublished: new Date(item.publishedDate).getTime() / 1000,
 			metadata: {
-				primarytagid: "86352", // how to translate between these and topics
+				primarytagid: item.displayConcept.id === FASTFT_STREAM_ID ? void(0) : item.displayConcept.id,
 			},
 			shorturl: item.webUrl,
 			sortval: `1-0-0`, // what do the first things mean
 			status: 'live',
-			tags: [
-				{tag: 'Markets', id: 86352, query: 'tag:Markets'},
-			],
+			tags: conceptsToTags(item.annotations),
 			title: item.title,
 			url: item.webUrl,
 			uuidv3: item.id,
