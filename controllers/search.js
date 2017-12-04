@@ -1,4 +1,5 @@
 const {search} = require('@financial-times/n-es-client');
+const pick = require('lodash.pick');
 
 const FASTFT_STREAM_ID = '5c7592a8-1f0c-11e4-b0cb-b2227cce2b54';
 
@@ -32,6 +33,89 @@ const parseQuery = types => (query = '') => {
 	return types.default;
 }
 
+class ResultMapper {
+	constructor(data, options = {}) {
+		this._data = data;
+		this._fields = options.outputfields || this._defaultFields();
+	}
+
+	_defaultFields() {
+		return Object.getOwnPropertyNames(
+			this.constructor.prototype
+		).filter(name =>
+			!name.startsWith('_') && name !== 'constructor'
+		);
+	}
+
+	toJSON() {
+		return pick(this, this._fields);
+	}
+}
+
+class Item extends ResultMapper {
+	get id() {
+		return this._data.id;
+	}
+
+	get abstract() {
+		return this._data.openingHTML;
+	}
+
+	get content() {
+		return this._data.bodyHTML;
+	}
+
+	get attachments() {
+		return [];
+	}
+
+	get currentversion() {
+		return 1;
+	}
+
+	get issticky() {
+		return false;
+	}
+
+	get datepublished() {
+		return new Date(this._data.publishedDate).getTime() / 1000;
+	}
+
+	get metadata() {
+		return {
+			primarytagid: this._data.displayConcept.id === FASTFT_STREAM_ID ? void(0) : this._data.displayConcept.id,
+		};
+	}
+
+	get shorturl() {
+		return this._data.webUrl;
+	}
+
+	get sortval() {
+		return this.datepublished.toString();
+	}
+
+	get status() {
+		return 'live';
+	}
+
+	get tags() {
+		return conceptsToTags(this._data.annotations);
+	}
+
+	get title() {
+		return this._data.title;
+	}
+
+	get url() {
+		return this._data.webUrl;
+	}
+
+	get uuidv3() {
+		return this._data.id;
+	}
+}
+
 const queryToES = parseQuery({
 	concept: id => ({
 		term: {'annotations.id': id}
@@ -52,25 +136,7 @@ module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}
 	return {
 		original: showOriginal && stream,
 		count: stream.length,
-		results: stream.map(item => ({
-			id: item.id,
-			abstract: item.openingHTML,
-			content: item.bodyHTML,
-			attachments: [],
-			currentversion: 1,
-			issticky: false,
-			datepublished: new Date(item.publishedDate).getTime() / 1000,
-			metadata: {
-				primarytagid: item.displayConcept.id === FASTFT_STREAM_ID ? void(0) : item.displayConcept.id,
-			},
-			shorturl: item.webUrl,
-			sortval: `1-0-0`, // what do the first things mean
-			status: 'live',
-			tags: conceptsToTags(item.annotations),
-			title: item.title,
-			url: item.webUrl,
-			uuidv3: item.id,
-		})),
+		results: stream.map(item => new Item(item, {outputfields})),
 		srh: { query, offset, limit },
 	}
 };
