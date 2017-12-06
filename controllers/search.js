@@ -13,7 +13,6 @@ module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}
 	const fields = Object.keys(pickBy(outputfields));
 
 	return {
-		original: showOriginal && stream,
 		count: stream.length,
 		results: stream.map(item => new Item(item, {fields})),
 		srh: { query, offset, limit },
