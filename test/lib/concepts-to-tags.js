@@ -24,5 +24,23 @@ exports['conceptsToTags'] = {
 				},
 			]
 		)
-	}
+	},
+
+	'should skip fastFT annotations'() {
+		assert.deepEqual(
+			conceptsToTags(
+				[
+					{prefLabel: 'Topic', id: 'ffffffff-ffff-ffff-ffff-ffffffffffff'},
+					{prefLabel: 'fastFT', id: FASTFT_STREAM_ID},
+				]
+			),
+			[
+				{
+					tag: 'Topic',
+					id: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+					query: 'concept:ffffffff-ffff-ffff-ffff-ffffffffffff'
+				},
+			]
+		)
+	},
 };
