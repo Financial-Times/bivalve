@@ -1,19 +1,22 @@
 {
   "name": "Bivalve",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -x 'micro -p ${PORT:-3000}'",
     "test": "nyc --all -- mocha -r dotenv/config --ui exports test/**/*.js",
-    "test-watch": "mocha -r dotenv/config --ui exports --watch test/**/*.js"
+    "test-watch": "mocha -r dotenv/config --ui exports --watch test/**/*.js",
+    "heroku-postbuild": "git-version-infer && package-version-github-release"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@financial-times/n-es-client": "^1.5.1",
+    "@quarterto/git-version-infer": "^5.0.1",
     "@quarterto/micro-cors": "^1.0.0",
+    "@quarterto/package-version-github-release": "^1.2.0",
     "dotenv": "^4.0.0",
     "http-errors": "^1.6.2",
     "lodash.pick": "^4.4.0",
