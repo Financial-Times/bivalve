@@ -3,6 +3,10 @@ const conceptsToTags = require('../../lib/concepts-to-tags');
 const FASTFT_STREAM_ID = require('../../lib/stream-id');
 
 exports['conceptsToTags'] = {
+	'shouldn\'t care about no arguments'() {
+		assert.deepEqual(conceptsToTags(), []);
+	},
+
 	'should turn ES-annotation-like objects into clamo-like tags'() {
 		assert.deepEqual(
 			conceptsToTags(
