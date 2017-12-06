@@ -1,4 +1,9 @@
-exports.getUserInfo = require('./get-user-info');
-exports.testError = require('./test-error');
-exports.addQuerySubscription = require('./add-query-subscription');
-exports.search = require('./search');
+const controllers = {
+	getUserInfo: require('./get-user-info'),
+	testError: require('./test-error'),
+	addQuerySubscription: require('./add-query-subscription'),
+	search: require('./search'),
+};
+
+const dispatch = require('./dispatch');
+module.exports =  dispatch(controllers);

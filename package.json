@@ -19,6 +19,8 @@
     "micro": "^9.0.2"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1"
   }
 }
