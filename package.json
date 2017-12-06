@@ -1,7 +1,6 @@
 {
   "name": "Bivalve",
   "version": "0.0.0-development",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -x 'micro -p ${PORT:-3000}'",
@@ -9,9 +8,7 @@
     "test-watch": "mocha -r dotenv/config --ui exports --watch test/**/*.js",
     "heroku-postbuild": "git-version-infer && package-version-github-release"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "matthew.brennan@ft.com",
   "dependencies": {
     "@financial-times/n-es-client": "^1.5.1",
     "@quarterto/git-version-infer": "^5.0.1",
@@ -41,5 +38,18 @@
       "controllers/index.js",
       "test/*"
     ]
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/bivalve.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Financial-Times/bivalve/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/bivalve#readme",
+  "private": true
 }
