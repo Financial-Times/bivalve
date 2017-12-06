@@ -1,0 +1,1 @@
+web: micro -p $PORT
