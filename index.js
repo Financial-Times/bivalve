@@ -12,8 +12,6 @@ module.exports = async (req, res) => {
 	const {query: {request}} = url.parse(req.url, true);
 	if(!request) throw new BadRequest();
 
-	console.log(request);
-
 	const requestArr = JSON.parse(request);
 	if(!Array.isArray(requestArr)) throw new BadRequest();
 

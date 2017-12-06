@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -x 'micro -p ${PORT:-3000}'"
+    "start": "nodemon -x 'micro -p ${PORT:-3000}'",
+    "test": "nyc --all -- mocha --ui exports test/**/*.js",
+    "test-watch": "mocha --ui exports --watch test/**/*.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,8 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "nyc": "^11.3.0",
+    "sinon": "^4.1.2"
   }
 }
