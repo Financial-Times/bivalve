@@ -1,0 +1,8 @@
+{
+	"name": "bivalve",
+	"buildpacks": [
+		{
+			"url": "urn:buildpack:heroku/nodejs"
+		}
+	]
+}
