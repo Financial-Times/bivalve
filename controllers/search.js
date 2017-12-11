@@ -10,6 +10,7 @@ module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}
 		from: offset,
 	});
 
+	outputfields.sortval = true;
 	const fields = Object.keys(pickBy(outputfields));
 
 	return {
