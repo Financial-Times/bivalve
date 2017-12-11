@@ -1,6 +1,6 @@
 <img align="right" src="/logo.png" width="256" alt="Line drawing of a clam">
 
-# Bivalve
+# Bivalve [![CircleCI](https://circleci.com/gh/Financial-Times/bivalve.svg?style=svg)](https://circleci.com/gh/Financial-Times/bivalve)
 
 Clamo API shim for the App. Takes content from Elastic Search and outputs it in clamo-engine format.
 
