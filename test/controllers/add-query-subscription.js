@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const addQuerySubscription = require('../../controllers/add-query-subscription');
+const addQuerySubscription = require('../../lib/controllers/add-query-subscription');
 
 exports['addQuerySubscription controller'] = {
 	async 'should return dummy data'() {

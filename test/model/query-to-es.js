@@ -1,6 +1,6 @@
 const {assert} = require('chai');
-const queryToES = require('../../lib/query-to-es');
-const FASTFT_STREAM_ID = require('../../lib/stream-id');
+const queryToES = require('../../lib/model/query-to-es');
+const FASTFT_STREAM_ID = require('../../lib/model/stream-id');
 
 exports['queryToES'] = {
 	'should return term query for fastft id with no arguments'() {

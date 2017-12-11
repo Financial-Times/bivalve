@@ -1,6 +1,6 @@
 const {search} = require('@financial-times/n-es-client');
-const Item = require('../lib/item');
-const queryToES = require('../lib/query-to-es');
+const Item = require('../model/item');
+const queryToES = require('../model/query-to-es');
 const pickBy = require('lodash.pickby');
 
 module.exports = async ({sort, outputfields, query, offset, limit}) => {

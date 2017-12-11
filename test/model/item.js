@@ -1,7 +1,7 @@
 const {assert} = require('chai');
-const Item = require('../../lib/item');
-const ResultMapper = require('../../lib/result-mapper');
-const FASTFT_STREAM_ID = require('../../lib/stream-id');
+const Item = require('../../lib/model/item');
+const ResultMapper = require('../../lib/model/result-mapper');
+const FASTFT_STREAM_ID = require('../../lib/model/stream-id');
 
 exports['Item'] = {
 	'should be a ResultMapper'() {

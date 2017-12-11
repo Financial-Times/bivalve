@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const getUserInfo = require('../../controllers/get-user-info');
+const getUserInfo = require('../../lib/controllers/get-user-info');
 
 exports['getUserInfo controller'] = {
 	async 'should return dummy data'() {

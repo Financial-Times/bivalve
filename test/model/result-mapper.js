@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const ResultMapper = require('../../lib/result-mapper');
+const ResultMapper = require('../../lib/model/result-mapper');
 
 exports['ResultMapper'] = {
 	'should make first constructor argument available as _data'() {

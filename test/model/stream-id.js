@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const FASTFT_STREAM_ID = require('../../lib/stream-id');
+const FASTFT_STREAM_ID = require('../../lib/model/stream-id');
 
 exports['stream id'] = {
 	'is the fastft concept id'() {
