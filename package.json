@@ -7,8 +7,7 @@
     "start:build": "wmake --non-interactive",
     "start:server": "micro-dev lib",
     "prestart": "make -j4",
-    "test": "flow check && nyc --all -- mocha -r dotenv/config --ui exports test/**/*.js",
-    "test-watch": "mocha -r dotenv/config --ui exports --watch test/**/*.js",
+    "test": "make test",
     "heroku-postbuild": "git-version-infer && make && package-version-github-release",
     "precommit": "flow check"
   },

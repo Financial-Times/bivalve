@@ -10,11 +10,11 @@ type Request = {
 module.exports = (controllers: { [string]: Controller }) =>
 	async (requests: Request[]) =>
 		(await Promise.all(requests.map(
-			async ({action, arguments}) => {
+			async ({action, arguments: args}) => {
 				try {
 					if(!controllers[action]) throw new Error(`No controller ${action}`);
 
-					const data = await controllers[action](arguments);
+					const data = await controllers[action](args);
 					return {data, status: 'ok'};
 				} catch(e) {
 					return {status: e.message};
