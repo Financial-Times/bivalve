@@ -10,11 +10,12 @@ export type Tag = {
 	query?: string
 };
 
-type $ArrayElementType<T> = $ElementType<T, number>;
-type Annotation = $ArrayElementType<
+// extract the type of Annotation in `type FtItem = { annotations?: Annotation[] }`
+type Annotation = $ElementType<
 	$NonMaybeType<
 		$PropertyType<FtItem, 'annotations'>
-	>
+	>,
+	number
 >;
 
 const conceptsToTags = (concepts: Annotation[] = []): Tag[] =>
