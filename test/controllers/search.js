@@ -16,7 +16,7 @@ const searchFixture = {
 		total: 34205,
 		max_score: null,
 		hits: [
-			{id: 'ffffffff-ffff-ffff-ffff-ffffffffffff', title: 'Article 1'}
+			{_source: {id: 'ffffffff-ffff-ffff-ffff-ffffffffffff', title: 'Article 1'}},
 		],
 	},
 };
@@ -39,6 +39,22 @@ exports['search controller'] = {
 
 		results.every(result => {
 			assert.instanceOf(result, Item);
+		});
+	},
+
+	async 'should pass outputfields to Item, always outputting sortval'() {
+		const es = nock(`https://${this.elasticSearchHost}`)
+			.post('/content/item/_search')
+			.reply(200, searchFixture);
+
+		const {results} = await search({
+			outputfields: {
+				id: true
+			}
+		});
+
+		results.every(result => {
+			assert.hasAllKeys(result.toJSON(), ['id', 'sortval']);
 		});
 	}
 };

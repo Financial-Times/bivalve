@@ -10,8 +10,11 @@ module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}
 		from: offset,
 	});
 
-	outputfields.sortval = true;
-	const fields = Object.keys(pickBy(outputfields));
+	let fields = null;
+	if(outputfields) {
+		outputfields.sortval = true;
+		fields = Object.keys(pickBy(outputfields));
+	}
 
 	return {
 		count: stream.length,
