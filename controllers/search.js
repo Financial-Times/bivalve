@@ -3,7 +3,7 @@ const Item = require('../lib/item');
 const queryToES = require('../lib/query-to-es');
 const pickBy = require('lodash.pickby');
 
-module.exports = async ({sort, outputfields, query, offset, limit, showOriginal}) => {
+module.exports = async ({sort, outputfields, query, offset, limit}) => {
 	const stream = await search({
 		query: queryToES(query),
 		size: limit,
