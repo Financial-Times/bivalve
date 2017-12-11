@@ -10,8 +10,8 @@ export type Tag = {
 	query?: string
 };
 
-type $ArrayElement<T> = $ElementType<T, number>;
-type Annotation = $ArrayElement<
+type $ArrayElementType<T> = $ElementType<T, number>;
+type Annotation = $ArrayElementType<
 	$NonMaybeType<
 		$PropertyType<FtItem, 'annotations'>
 	>
