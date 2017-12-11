@@ -28,6 +28,7 @@
     "@quarterto/promisify": "^1.0.0",
     "chai": "^4.1.2",
     "flow-bin": "^0.61.0",
+    "flow-coverage-report": "^0.4.0",
     "flow-remove-types": "^1.2.3",
     "micro-dev": "^2.1.0",
     "mocha": "^4.0.1",

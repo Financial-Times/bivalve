@@ -14,10 +14,15 @@ clean:
 
 mocha-opts = --require dotenv/config --ui exports
 
-test: flow $(lib-files) $(test-files)
-	node_modules/.bin/nyc --all -- mocha $(mocha-opts) $(test-files)
+test: flow mocha flow-coverage
+
+mocha: $(lib-files) $(test-files)
+	node_modules/.bin/nyc --all -- node_modules/.bin/mocha $(mocha-opts) $(test-files)
 
 flow: $(src-files)
 	node_modules/.bin/flow check
+
+flow-coverage:
+	node_modules/.bin/flow-coverage-report -i 'src/**/*.js' -f node_modules/.bin/flow
 
 .PHONY: clean test flow
