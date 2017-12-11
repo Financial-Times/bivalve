@@ -2,9 +2,13 @@ const mainController = require('./controllers');
 const {send} = require('micro');
 const url = require('url');
 const {BadRequest} = require('http-errors');
-const cors = require('@quarterto/micro-cors');
+const {createHandler: createCorsHandler} = require('@quarterto/micro-cors');
 
 require('dotenv/config');
+
+const cors = createCorsHandler({
+	supportsCredentials: true
+});
 
 module.exports = async (req, res) => {
 	await cors(req, res);
