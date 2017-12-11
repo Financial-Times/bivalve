@@ -1,1 +1,1 @@
-web: micro -p $PORT
+web: micro -p $PORT lib

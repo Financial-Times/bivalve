@@ -1,6 +1,6 @@
 const {assert} = require('chai');
-const conceptsToTags = require('../../lib/concepts-to-tags');
-const FASTFT_STREAM_ID = require('../../lib/stream-id');
+const conceptsToTags = require('../../lib/model/concepts-to-tags');
+const FASTFT_STREAM_ID = require('../../lib/model/stream-id');
 
 exports['conceptsToTags'] = {
 	'shouldn\'t care about no arguments'() {

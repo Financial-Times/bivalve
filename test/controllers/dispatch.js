@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const dispatch = require('../../controllers/dispatch');
+const dispatch = require('../../lib/controllers/dispatch');
 const sinon = require('sinon');
 
 const tick = () => new Promise(resolve => process.nextTick(resolve));

@@ -1,3 +1,5 @@
+// @flow
+
 module.exports = () => ({
 	id: 1,
 	pseudonym: 'Anonymous User',

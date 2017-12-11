@@ -1,8 +1,12 @@
+// @flow
+
 const mainController = require('./controllers');
 const {send} = require('micro');
 const url = require('url');
 const {BadRequest} = require('http-errors');
 const {createHandler: createCorsHandler} = require('@quarterto/micro-cors');
+
+import type {IncomingMessage, ServerResponse} from 'http';
 
 require('dotenv/config');
 
@@ -10,10 +14,10 @@ const cors = createCorsHandler({
 	supportsCredentials: true
 });
 
-module.exports = async (req, res) => {
+module.exports = async (req: IncomingMessage, res: ServerResponse) => {
 	await cors(req, res);
 
-	const {query: {request}} = url.parse(req.url, true);
+	const {query: {request} = {}} = url.parse(req.url, true);
 	if(!request) throw new BadRequest();
 
 	const requestArr = JSON.parse(request);

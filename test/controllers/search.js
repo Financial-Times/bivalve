@@ -1,8 +1,8 @@
 const {assert} = require('chai');
-const search = require('../../controllers/search');
+const search = require('../../lib/controllers/search');
 const nock = require('nock');
 const resolveCname = require('@quarterto/promisify')(require('dns').resolveCname);
-const Item = require('../../lib/item');
+const Item = require('../../lib/model/item');
 
 const searchFixture = {
 	took: 5,

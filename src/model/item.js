@@ -1,37 +1,51 @@
+// @flow
+
 const ResultMapper = require('./result-mapper');
 const conceptsToTags = require('./concepts-to-tags');
 const FASTFT_STREAM_ID = require('./stream-id');
 
+import type {FtItem} from '@financial-times/n-flow-ft-content';
+import type {Tag} from './concepts-to-tags';
+
+type Metadata = {
+	primarytagid?: string
+};
+
+
 module.exports = class Item extends ResultMapper {
-	get id() {
+	_data: FtItem;
+
+	get id(): ?string {
 		return this._data.id;
 	}
 
-	get abstract() {
+	get abstract(): ?string {
 		return this._data.openingHTML;
 	}
 
-	get content() {
+	get content(): ?string {
 		return this._data.bodyHTML;
 	}
 
-	get attachments() {
+	get attachments(): void[] {
 		return [];
 	}
 
-	get currentversion() {
+	get currentversion(): number {
 		return 1;
 	}
 
-	get issticky() {
+	get issticky(): boolean {
 		return false;
 	}
 
-	get datepublished() {
-		return (new Date(this._data.publishedDate).getTime() / 1000).toFixed(0);
+	get datepublished(): ?string {
+		if(this._data.publishedDate) {
+			return (new Date(this._data.publishedDate).getTime() / 1000).toFixed(0);
+		}
 	}
 
-	get metadata() {
+	get metadata(): Metadata {
 		return {
 			primarytagid: !this._data.displayConcept || this._data.displayConcept.id === FASTFT_STREAM_ID
 				? void(0)
@@ -39,31 +53,31 @@ module.exports = class Item extends ResultMapper {
 		};
 	}
 
-	get shorturl() {
+	get shorturl(): ?string {
 		return this._data.webUrl;
 	}
 
-	get sortval() {
+	get sortval(): ?string {
 		return this.datepublished;
 	}
 
-	get status() {
+	get status(): string {
 		return 'live';
 	}
 
-	get tags() {
+	get tags(): Tag[] {
 		return conceptsToTags(this._data.annotations);
 	}
 
-	get title() {
+	get title(): ?string {
 		return this._data.title;
 	}
 
-	get url() {
+	get url(): ?string {
 		return this._data.webUrl;
 	}
 
-	get uuidv3() {
+	get uuidv3(): ?string {
 		return this._data.id;
 	}
 }
