@@ -1,3 +1,5 @@
+// @flow
+
 module.exports = () => ({
 	queryid: 1,
 	channel: 'blogs.blog-335.all-posts',

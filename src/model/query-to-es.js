@@ -1,3 +1,5 @@
+// @flow
+
 const FASTFT_STREAM_ID = require('./stream-id');
 
 const boolQuery = queries => ({
@@ -6,7 +8,7 @@ const boolQuery = queries => ({
 	}
 });
 
-const parseQuery = types => (query = '') => {
+const parseQuery = types => (query: string = '') => {
 	const [type, id] = query.split(':');
 
 	if(types[type]) {

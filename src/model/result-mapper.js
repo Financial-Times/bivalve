@@ -1,7 +1,12 @@
+// @flow
+
 const pick = require('lodash.pick');
 
 module.exports = class ResultMapper {
-	constructor(data, options = {}) {
+	_data: Object;
+	_fields: string[];
+
+	constructor(data: Object, options: {fields?: string[]} = {}) {
 		this._data = data;
 		this._fields = options.fields || this._defaultFields();
 	}

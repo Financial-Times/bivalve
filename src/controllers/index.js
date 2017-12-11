@@ -1,3 +1,5 @@
+// @flow
+
 const controllers = {
 	getUserInfo: require('./get-user-info'),
 	testError: require('./test-error'),
@@ -6,4 +8,4 @@ const controllers = {
 };
 
 const dispatch = require('./dispatch');
-module.exports =  dispatch(controllers);
+module.exports = dispatch(controllers);
