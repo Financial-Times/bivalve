@@ -7,9 +7,10 @@
     "start:build": "wmake --non-interactive",
     "start:server": "micro-dev lib",
     "prestart": "make -j4",
-    "test": "nyc --all -- mocha -r dotenv/config --ui exports test/**/*.js",
+    "test": "flow check && nyc --all -- mocha -r dotenv/config --ui exports test/**/*.js",
     "test-watch": "mocha -r dotenv/config --ui exports --watch test/**/*.js",
-    "heroku-postbuild": "git-version-infer && make && package-version-github-release"
+    "heroku-postbuild": "git-version-infer && make && package-version-github-release",
+    "precommit": "flow check"
   },
   "author": "matthew.brennan@ft.com",
   "dependencies": {
@@ -24,6 +25,7 @@
     "micro": "^9.0.2"
   },
   "devDependencies": {
+    "@financial-times/n-flow-ft-content": "^1.0.2",
     "@quarterto/promisify": "^1.0.0",
     "chai": "^4.1.2",
     "flow-bin": "^0.61.0",
