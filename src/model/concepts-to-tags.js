@@ -10,8 +10,16 @@ export type Tag = {
 	query?: string
 };
 
-const conceptsToTags = (concepts: $PropertyType<FtItem, 'annotations'>): Tag[] =>
-	(concepts || [])
+// extract the type of Annotation in `type FtItem = { annotations?: Annotation[] }`
+type Annotation = $ElementType<
+	$NonMaybeType<
+		$PropertyType<FtItem, 'annotations'>
+	>,
+	number
+>;
+
+const conceptsToTags = (concepts: Annotation[] = []): Tag[] =>
+	concepts
 		.filter(concept => concept.id !== FASTFT_STREAM_ID)
 		.map(concept => ({
 			tag: concept.prefLabel,

@@ -13,7 +13,17 @@ type SearchOptions = {
 	limit: number
 };
 
-module.exports = async ({sort, outputfields, query, offset, limit}: SearchOptions) => {
+type SearchResult = {
+	count: number,
+	results: Item[],
+	srh: {
+		query: string,
+		offset: number,
+		limit: number
+	}
+};
+
+module.exports = async ({sort, outputfields, query, offset, limit}: SearchOptions): Promise<SearchResult> => {
 	const stream = await search({
 		query: queryToES(query),
 		size: limit,
