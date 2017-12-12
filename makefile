@@ -1,7 +1,7 @@
-src-files = $(shell find src -name *.js)
+src-files = $(shell find src -name '*.js')
 lib-files = $(patsubst src/%.js, lib/%.js, $(src-files))
 
-test-files = $(shell find test -name *.js)
+test-files = $(shell find test -name '*.js')
 
 all: $(lib-files)
 

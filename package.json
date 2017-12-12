@@ -15,6 +15,7 @@
   "dependencies": {
     "@financial-times/n-es-client": "^1.5.1",
     "@quarterto/git-version-infer": "^5.1.0",
+    "@quarterto/heroku-cluster": "^1.4.0",
     "@quarterto/micro-cors": "^1.2.0",
     "@quarterto/package-version-github-release": "^1.2.0",
     "dotenv": "^4.0.0",
