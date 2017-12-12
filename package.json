@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@financial-times/n-flow-ft-content": "^1.0.2",
+    "@quarterto/heroku-cluster": "^1.4.0",
     "@quarterto/promisify": "^1.0.0",
     "chai": "^4.1.2",
     "flow-bin": "^0.61.0",

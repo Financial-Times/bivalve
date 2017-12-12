@@ -1,1 +1,1 @@
-web: micro -p $PORT lib
+web: node cluster.js
