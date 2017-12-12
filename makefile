@@ -1,7 +1,7 @@
-src-files = $(shell find src -name *.js)
+src-files = $(shell find src -name '*.js')
 lib-files = $(patsubst src/%.js, lib/%.js, $(src-files))
 
-test-files = $(shell find test -name *.js)
+test-files = $(shell find test -name '*.js')
 
 all: $(lib-files)
 
@@ -17,7 +17,7 @@ mocha-opts = --require dotenv/config --ui exports
 test: flow mocha flow-coverage
 
 mocha: $(lib-files) $(test-files)
-	node_modules/.bin/nyc --all -- node_modules/.bin/mocha $(mocha-opts) test/**/*.js
+	node_modules/.bin/nyc --all -- node_modules/.bin/mocha $(mocha-opts) $(test-files)
 
 flow: $(src-files)
 	node_modules/.bin/flow check
