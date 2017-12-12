@@ -17,7 +17,7 @@ mocha-opts = --require dotenv/config --ui exports
 test: flow mocha flow-coverage
 
 mocha: $(lib-files) $(test-files)
-	node_modules/.bin/nyc --all -- node_modules/.bin/mocha $(mocha-opts) $(test-files)
+	node_modules/.bin/nyc --all -- node_modules/.bin/mocha $(mocha-opts) test/**/*.js
 
 flow: $(src-files)
 	node_modules/.bin/flow check
