@@ -34,6 +34,7 @@
     "micro-dev": "^2.1.0",
     "mocha": "^4.0.1",
     "mocha-junit-reporter": "^1.15.0",
+    "mocha-multi": "^0.11.1",
     "nock": "^9.1.4",
     "npm-run-all": "^4.1.2",
     "nyc": "^11.3.0",

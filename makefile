@@ -15,8 +15,7 @@ clean:
 mocha-opts = --require dotenv/config --ui exports
 
 ifdef CIRCLE_TEST_REPORTS
-	export MOCHA_FILE = $(CIRCLE_TEST_REPORTS)/junit/test-results.xml
-	mocha-opts += --reporter mocha-junit-reporter
+	mocha-opts += --reporter mocha-multi --reporter-options spec=-,mocha-junit-reporter=$(CIRCLE_TEST_REPORTS)/junit/test-results.xml
 endif
 
 test: flow mocha flow-coverage
