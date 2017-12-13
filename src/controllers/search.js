@@ -5,25 +5,9 @@ const Item = require('../model/item');
 const queryToES = require('../model/query-to-es');
 const pickBy = require('lodash.pickby');
 
-type SearchOptions = {
-	sort: string,
-	outputfields?: Object,
-	query: string,
-	offset: number,
-	limit: number
-};
+import type {Search, SearchResult, Controller} from './types';
 
-type SearchResult = {
-	count: number,
-	results: Item[],
-	srh: {
-		query: string,
-		offset: number,
-		limit: number
-	}
-};
-
-module.exports = async ({sort, outputfields, query, offset, limit}: SearchOptions): Promise<SearchResult> => {
+const searchController: Controller<Search, SearchResult> = async ({sort, outputfields, query, offset, limit}) => {
 	const stream = await search({
 		query: queryToES(query),
 		size: limit,
@@ -42,3 +26,5 @@ module.exports = async ({sort, outputfields, query, offset, limit}: SearchOption
 		srh: { query, offset, limit },
 	}
 };
+
+module.exports = searchController;
