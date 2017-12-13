@@ -50,7 +50,8 @@
       "lib/index.js",
       "lib/controllers/index.js",
       "test/*",
-      "src/*"
+      "src/*",
+      "cluster.js"
     ]
   },
   "directories": {

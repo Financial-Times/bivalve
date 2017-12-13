@@ -1,6 +1,8 @@
 // @flow
 
-module.exports = () => ({
+import type {GetUserInfo, GetUserInfoResult, Controller} from './types';
+
+const getUserInfoController: Controller<GetUserInfo, GetUserInfoResult> = async () => ({
 	id: 1,
 	pseudonym: 'Anonymous User',
 	timezone: 'Europe/London',
@@ -26,3 +28,5 @@ module.exports = () => ({
 		classname: null
 	})),
 });
+
+module.exports = getUserInfoController;
