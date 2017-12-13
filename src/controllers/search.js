@@ -7,7 +7,7 @@ const pickBy = require('lodash.pickby');
 
 import type {Search, SearchResult, Controller} from './types';
 
-const searchController: Controller<Search, SearchResult> = async ({sort, outputfields, query, offset, limit}) => {
+const searchController: Controller<Search, SearchResult> = async ({sort, outputfields, query, offset, limit}, {res}) => {
 	const stream = await search({
 		query: queryToES(query),
 		size: limit,
@@ -19,6 +19,8 @@ const searchController: Controller<Search, SearchResult> = async ({sort, outputf
 		outputfields.sortval = true;
 		fields = Object.keys(pickBy(outputfields));
 	}
+
+	res.setHeader('cache-control', 'public, max-age=120, must-revalidate, no-transform');
 
 	return {
 		count: stream.length,
