@@ -18,6 +18,7 @@
     "@quarterto/heroku-cluster": "^1.4.0",
     "@quarterto/micro-cors": "^1.2.0",
     "@quarterto/package-version-github-release": "^1.2.0",
+    "@quarterto/tcp-fetch": "^1.0.0",
     "dotenv": "^4.0.0",
     "flow-remove-types": "^1.2.3",
     "http-errors": "^1.6.2",
