@@ -7,8 +7,27 @@ const {BadRequest} = require('http-errors');
 const {createHandler: createCorsHandler} = require('@quarterto/micro-cors');
 const os = require('os');
 const tcpFetch = require('@quarterto/tcp-fetch');
+const {createProxyServer} = require('http-proxy');
+const hr = require('@quarterto/hr');
 
 const {version} = require('../package.json');
+
+const proxyUrl = 'https://www.ft.com/fastft/api'
+const proxyEverything = process.env.ENABLE_PROXY === 'yes';
+const proxy = createProxyServer({
+	target: proxyUrl,
+	changeOrigin: true,
+	secure: true,
+});
+
+if(proxyEverything) {
+	const message = `Starting in proxy mode. All requests will be proxied to ${proxyUrl}`;
+	console.log(`
+${hr('╴', message.length)}
+${message}
+${hr('╴', message.length)}
+`);
+}
 
 import type {IncomingMessage, ServerResponse} from 'http';
 import type {ResultCollation, Results} from './controllers/types';
@@ -69,6 +88,7 @@ type Response = Promise<
 	| ResultCollation<Results>
 	| Object // yolo
 	| 'OK'
+	| void
 >;
 
 const uncachedResponse = res => response => {
@@ -77,27 +97,31 @@ const uncachedResponse = res => response => {
 }
 
 module.exports = async (req: IncomingMessage, res: ServerResponse): Response => {
-	await cors(req, res);
+	if(proxyEverything) {
+		proxy.web(req, res);
+	} else {
+		await cors(req, res);
 
-	const {
-		query: {request} = {},
-		pathname,
-	} = url.parse(req.url, true);
+		const {
+			query: {request} = {},
+			pathname,
+		} = url.parse(req.url, true);
 
-	const uncached = uncachedResponse(res);
+		const uncached = uncachedResponse(res);
 
-	switch(pathname) {
-		case '/__gtg': return uncached('OK');
-		case '/__health': return uncached(await health());
-		case '/__about': return uncached(about);
-		case '/favicon.ico': return send(res, 404);
-		default: {
-			if(!request) throw new BadRequest();
+		switch(pathname) {
+			case '/__gtg': return uncached('OK');
+			case '/__health': return uncached(await health());
+			case '/__about': return uncached(about);
+			case '/favicon.ico': return send(res, 404);
+			default: {
+				if(!request) throw new BadRequest();
 
-			const requestArr = JSON.parse(request);
-			if(!Array.isArray(requestArr)) throw new BadRequest();
+				const requestArr = JSON.parse(request);
+				if(!Array.isArray(requestArr)) throw new BadRequest();
 
-			return mainController(requestArr, {req, res});
+				return mainController(requestArr, {req, res});
+			}
 		}
 	}
 };
