@@ -59,7 +59,8 @@ const health = async () => {
 			businessImpact: 'fastFT posts will not be available in the Web App/iOS App/Android App',
 			technicalSummary: 'Attempts to connect to next-elastic.ft.com:443. All content is requested from this host; without connectivity, fastFT content will not be available in the Apps',
 			panicGuide: `Check connectivity by running \`heroku run --app ${process.env.HEROKU_APP_NAME || '$HEROKU_APP_NAME'} nc -w 5 -z next-elastic.ft.com 443\`.`,
-			ok, checkOutput,
+			ok,
+			checkOutput,
 		}]
 	};
 }
