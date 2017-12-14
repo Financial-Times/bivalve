@@ -97,24 +97,24 @@ const uncachedResponse = res => response => {
 }
 
 module.exports = async (req: IncomingMessage, res: ServerResponse): Response => {
-	if(proxyEverything) {
-		proxy.web(req, res);
-	} else {
-		await cors(req, res);
+	const {
+		query: {request} = {},
+		pathname,
+	} = url.parse(req.url, true);
 
-		const {
-			query: {request} = {},
-			pathname,
-		} = url.parse(req.url, true);
+	const uncached = uncachedResponse(res);
 
-		const uncached = uncachedResponse(res);
+	switch(pathname) {
+		case '/__gtg': return uncached('OK');
+		case '/__health': return uncached(await health());
+		case '/__about': return uncached(about);
+		case '/favicon.ico': return send(res, 404);
+		default: {
+			if(proxyEverything) {
+				proxy.web(req, res);
+			} else {
+				await cors(req, res);
 
-		switch(pathname) {
-			case '/__gtg': return uncached('OK');
-			case '/__health': return uncached(await health());
-			case '/__about': return uncached(about);
-			case '/favicon.ico': return send(res, 404);
-			default: {
 				if(!request) throw new BadRequest();
 
 				const requestArr = JSON.parse(request);
