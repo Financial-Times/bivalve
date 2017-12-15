@@ -26,7 +26,7 @@ const getUserInfoController: Controller<GetUserInfo, GetUserInfoResult> = async 
 			query: '',
 			dispopts: '',
 			sort: 'date',
-			title: term,
+			title: 'All',
 			unreadcount: 0,
 			classname: null		
 		}],
