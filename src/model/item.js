@@ -27,7 +27,10 @@ module.exports = class Item extends ResultMapper {
 
 		if(this._data.bodyHTML) {
 			const $ = cheerio.load(this._data.bodyHTML);
-			return $.html($('p').first());
+
+			const firstPara = $('p').first();
+			const beforeFirst = firstPara.prevAll();
+			return $.html(beforeFirst) + $.html(firstPara);
 		}
 	}
 

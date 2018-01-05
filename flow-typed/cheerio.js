@@ -2,7 +2,8 @@
 
 declare module 'cheerio' {
 	declare class Selection {
-		first(): Selection
+		first(): Selection,
+		prevAll(): Selection
 	}
 
 	declare type Dollar = {
