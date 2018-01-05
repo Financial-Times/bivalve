@@ -19,5 +19,6 @@ declare module '@financial-times/n-es-client' {
 		from: number,
 	};
 
-	declare export function search(ESSearch): Promise<Array<FtItem>>
+	declare export function search(ESSearch): Promise<Array<FtItem>>;
+	declare export function get(string): Promise<FtItem>;
 }

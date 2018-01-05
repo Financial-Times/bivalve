@@ -50,17 +50,28 @@ export type TestError = {
 
 export type TestErrorResult = *;
 
+export type GetArticle = {
+	action: 'getArticle',
+	arguments: {
+		uuid: string,
+	},
+};
+
+export type GetArticleResult = Item;
+
 export type Actions =
 	| AddQuerySubscription
 	| GetUserInfo
 	| Search
-	| TestError;
+	| TestError
+	| GetArticle;
 
 export type Results =
 	| AddQuerySubscriptionResult
 	| GetUserInfoResult
 	| SearchResult
-	| TestErrorResult;
+	| TestErrorResult
+	| GetArticleResult;
 
 export type RequestMeta = {
 	req: IncomingMessage,
