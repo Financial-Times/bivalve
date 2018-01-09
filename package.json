@@ -20,6 +20,7 @@
     "@quarterto/micro-cors": "^1.2.0",
     "@quarterto/package-version-github-release": "^1.2.0",
     "@quarterto/tcp-fetch": "^1.0.0",
+    "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
     "fastly-cli": "^0.5.0",
     "flow-remove-types": "^1.2.3",

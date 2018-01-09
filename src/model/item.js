@@ -1,5 +1,7 @@
 // @flow
 
+const cheerio = require('cheerio');
+
 const ResultMapper = require('./result-mapper');
 const conceptsToTags = require('./concepts-to-tags');
 const FASTFT_STREAM_ID = require('./stream-id');
@@ -11,7 +13,6 @@ type Metadata = {
 	primarytagid?: string
 };
 
-
 module.exports = class Item extends ResultMapper {
 	_data: FtItem;
 
@@ -20,7 +21,17 @@ module.exports = class Item extends ResultMapper {
 	}
 
 	get abstract(): ?string {
-		return this._data.openingHTML;
+		if(this._data.openingHTML) {
+			return this._data.openingHTML;
+		}
+
+		if(this._data.bodyHTML) {
+			const $ = cheerio.load(this._data.bodyHTML);
+
+			const firstPara = $('p').first();
+			const beforeFirst = firstPara.prevAll();
+			return $.html(beforeFirst) + $.html(firstPara);
+		}
 	}
 
 	get content(): ?string {

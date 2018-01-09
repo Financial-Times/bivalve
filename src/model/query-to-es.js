@@ -2,13 +2,15 @@
 
 const FASTFT_STREAM_ID = require('./stream-id');
 
+import type {ESQuery} from '@financial-times/n-es-client';
+
 const boolQuery = queries => ({
 	bool: {
 		must: queries
 	}
 });
 
-const parseQuery = types => (query: string = '') => {
+const parseQuery = types => (query: string = ''): ESQuery => {
 	const [type, id] = query.split(':');
 
 	if(types[type]) {
