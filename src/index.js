@@ -43,7 +43,7 @@ const about = {
 	name: 'bivalve',
 	purpose: 'Clamo API shim for the App',
 	audience: 'public',
-	systemCode: 'bivalve',
+	systemCode: 'apps-bivalve',
 	primaryUrl: 'https://bivalve.ft.com',
 	appVersion: version,
 	serviceTier: 'bronze',
@@ -69,7 +69,7 @@ const health = async () => {
 		schemaVersion: 1,
 		name: 'bivalve',
 		description: 'Clamo API shim for the App',
-		systemCode: 'bivalve',
+		systemCode: 'apps-bivalve',
 		checks: [{
 			lastUpdated: (new Date).toISOString(),
 			severity: 1,
