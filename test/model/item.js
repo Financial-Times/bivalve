@@ -11,8 +11,8 @@ exports['Item'] = {
 	'should get things from places and other things from dummy data'() {
 		const item = new Item({
 			id: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
-			openingHTML: 'opening',
-			bodyHTML: 'body',
+			openingHTML: 'opening with <a href="/target">link</a>',
+			bodyHTML: 'body with <a href="/target">link</a>',
 			webUrl: 'https://www.ft.com/content/ffffffff-ffff-ffff-ffff-ffffffffffff',
 			title: 'Title',
 			publishedDate: '2017-12-06T14:00:11.018Z',
@@ -22,8 +22,8 @@ exports['Item'] = {
 			item.toJSON(),
 			{
 				id: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
-				abstract: 'opening',
-				content: 'body',
+				abstract: 'opening with <a href="/target" class="js-link">link</a>',
+				content: 'body with <a href="/target" class="js-link">link</a>',
 				attachments: [],
 				currentversion: 1,
 				issticky: false,
