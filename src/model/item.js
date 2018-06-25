@@ -99,7 +99,7 @@ const processLinksInHTML = (html: ?string): ?string => {
 	}
 
 	const $ = cheerio.load(html, {xmlMode: true});
-	$('a').each((i: number, element: Selection) => {
+	$('a').each((i: number, element: Element) => {
 		if (!$(element).attr('href')) {
 			return;
 		}
