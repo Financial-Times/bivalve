@@ -3,13 +3,18 @@
 declare module 'cheerio' {
 	declare class Selection {
 		first(): Selection,
-		prevAll(): Selection
+		prevAll(): Selection,
+		addClass: (string) => Selection,
 	}
 
 	declare type Dollar = {
 		(string): Selection,
-		html: (Selection) => string,
+		html: (?Selection) => string,
 	}
 
-	declare export function load(string): Dollar;
+	declare type loadOptions = {
+		xmlMode: boolean,
+	};
+
+	declare export function load(string, ?loadOptions): Dollar;
 }

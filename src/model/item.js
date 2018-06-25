@@ -22,7 +22,7 @@ module.exports = class Item extends ResultMapper {
 
 	get abstract(): ?string {
 		if(this._data.openingHTML) {
-			return this._data.openingHTML;
+			return decorateLinksInHTML(this._data.openingHTML);
 		}
 
 		if(this._data.bodyHTML) {
@@ -30,12 +30,12 @@ module.exports = class Item extends ResultMapper {
 
 			const firstPara = $('p').first();
 			const beforeFirst = firstPara.prevAll();
-			return $.html(beforeFirst) + $.html(firstPara);
+			return decorateLinksInHTML($.html(beforeFirst) + $.html(firstPara));
 		}
 	}
 
 	get content(): ?string {
-		return this._data.bodyHTML;
+		return decorateLinksInHTML(this._data.bodyHTML);
 	}
 
 	get attachments(): void[] {
@@ -91,4 +91,14 @@ module.exports = class Item extends ResultMapper {
 	get uuidv3(): ?string {
 		return this._data.id;
 	}
+}
+
+const decorateLinksInHTML = (html: ?string): ?string => {
+	if (!html) {
+		return html;
+	}
+
+	const $ = cheerio.load(html, {xmlMode: true});
+	$('a').addClass('js-link');
+	return $.html();
 }
