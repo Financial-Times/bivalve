@@ -6,6 +6,8 @@ Clamo API shim for the App. Takes content from Elastic Search and outputs it in 
 
 ## Getting it running
 
+Create a `.env` file in this directory with `AWS_ACCESS_KEY=...` and `AWS_SECRET_ACCESS_KEY=...` entries with next-es access. Then:
+
 ```sh
 npm install
 npm start
