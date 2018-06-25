@@ -22,7 +22,7 @@ module.exports = class Item extends ResultMapper {
 
 	get abstract(): ?string {
 		if(this._data.openingHTML) {
-			return decorateLinksInHTML(this._data.openingHTML);
+			return processLinksInHTML(this._data.openingHTML);
 		}
 
 		if(this._data.bodyHTML) {
@@ -30,12 +30,12 @@ module.exports = class Item extends ResultMapper {
 
 			const firstPara = $('p').first();
 			const beforeFirst = firstPara.prevAll();
-			return decorateLinksInHTML($.html(beforeFirst) + $.html(firstPara));
+			return processLinksInHTML($.html(beforeFirst) + $.html(firstPara));
 		}
 	}
 
 	get content(): ?string {
-		return decorateLinksInHTML(this._data.bodyHTML);
+		return processLinksInHTML(this._data.bodyHTML);
 	}
 
 	get attachments(): void[] {
@@ -93,12 +93,26 @@ module.exports = class Item extends ResultMapper {
 	}
 }
 
-const decorateLinksInHTML = (html: ?string): ?string => {
+const processLinksInHTML = (html: ?string): ?string => {
 	if (!html) {
 		return html;
 	}
 
 	const $ = cheerio.load(html, {xmlMode: true});
-	$('a').addClass('js-link');
+	$('a').each((i: number, element: Selection) => {
+		if (!$(element).attr('href')) {
+			return;
+		}
+
+		// Convert markets tearsheet links to relative links
+		if ($(element).attr('href').match(/^https?:\/\/markets\.ft\.com\/data\/equities\/tearsheet/) && $(element).attr('data-symbol')) {
+			$(element).attr('href', `/tearsheet/${$(element).attr('data-symbol')}`)
+		}
+
+		// Add js-link class to all relative links
+		if ($(element).attr('href').match(/^\//)) {
+			$(element).addClass('js-link');
+		}
+	});
 	return $.html();
 }
