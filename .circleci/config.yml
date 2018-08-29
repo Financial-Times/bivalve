@@ -69,7 +69,7 @@ jobs:
       - *restore_npm_cache
       - run:
           name: Install project dependencies
-          command: make install
+          command: npm install
       - run:
           name: shared-helper / npm-update
           command: .circleci/shared-helpers/helper-npm-update
@@ -78,7 +78,7 @@ jobs:
           command: .circleci/shared-helpers/helper-npm-install-peer-deps
       - run:
           name: Run the project build-production task
-          command: make build-production
+          command: make
       - run:
           name: shared-helper / generate-build-state-artifacts
           command: .circleci/shared-helpers/helper-generate-build-state-artifacts
@@ -108,46 +108,12 @@ jobs:
           path: test-results
           destination: test-results
 
-  provision:
-    <<: *container_config_node8
-    steps:
-      - *attach_workspace
-      - run:
-          name: shared-helper / setup-heroku-cli
-          command: .circleci/shared-helpers/helper-setup-heroku-cli
-          # TODO: Move this out into next circleci app preset env variables in Vault
-          environment:
-            HEROKU_LOGIN: next.developers@ft.com
-      - run:
-          name: Provision Heroku branch app
-          command: make provision
-      - run:
-          name: Tidy up Heroku branch app
-          command: make tidy
-          when: always
-
-  deploy:
-    <<: *container_config_node8
-    steps:
-      - *attach_workspace
-      - run:
-          name: shared-helper / helper-setup-heroku-cli
-          command: .circleci/shared-helpers/helper-setup-heroku-cli
-          # TODO: Move this out into next circleci app preset env variables in Vault
-          environment:
-            HEROKU_LOGIN: next.developers@ft.com
-      - run:
-          name: shared-helper / helper-install-puppeteer-deps
-          command: bash .circleci/shared-helpers/helper-install-puppeteer-deps
-      - run:
-          name: Deploy to production
-          command: make deploy-by-day
 
 workflows:
 
   version: 2
 
-  build-test-provision:
+  build-test:
     jobs:
       - build:
           filters:
@@ -155,43 +121,6 @@ workflows:
       - test:
           requires:
             - build
-      - provision:
-          requires:
-            - build
-
-  build-test-provision-deploy:
-    jobs:
-      - build:
-          filters:
-            <<: *filters_only_master
-      - test:
-          requires:
-            - build
-      - provision:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
-            - provision
-
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            <<: *filters_only_master
-    jobs:
-      - build:
-          context: next-nightly-build
-      - test:
-          requires:
-            - build
-          context: next-nightly-build
-      - provision:
-          requires:
-            - build
-          context: next-nightly-build
 
 notify:
   webhooks:
