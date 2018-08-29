@@ -27,7 +27,7 @@ exports['getUserInfo controller'] = {
 						timezone: 'Europe/London'
 					},
 					islocked: false,
-					isprimary: false,
+					isprimary: true,
 					perpage: 50,
 					query: '',
 					dispopts: '',
@@ -35,98 +35,8 @@ exports['getUserInfo controller'] = {
 					title: 'All',
 					unreadcount: 0,
 					classname: null
-				}, {
-					id: 2,
-					offsetlimit: '0,50',
-					querydefid: 2,
-					dateread: {
-						date: '2014-01-06 18:05:32.000000',
-						timezone_type: 3,
-						timezone: 'Europe/London'
-					},
-					islocked: false,
-					isprimary: false,
-					perpage: 50,
-					query: 'tag:us',
-					dispopts: '',
-					sort: 'date',
-					title: 'US',
-					unreadcount: 0,
-					classname: null
-				}, {
-					id: 3,
-					offsetlimit: '0,50',
-					querydefid: 3,
-					dateread: {
-						date: '2014-01-06 18:05:32.000000',
-						timezone_type: 3,
-						timezone: 'Europe/London'
-					},
-					islocked: false,
-					isprimary: false,
-					perpage: 50,
-					query: 'tag:eurozone',
-					dispopts: '',
-					sort: 'date',
-					title: 'Eurozone',
-					unreadcount: 0,
-					classname: null
-				}, {
-					id: 4,
-					offsetlimit: '0,50',
-					querydefid: 4,
-					dateread: {
-						date: '2014-01-06 18:05:32.000000',
-						timezone_type: 3,
-						timezone: 'Europe/London'
-					},
-					islocked: false,
-					isprimary: false,
-					perpage: 50,
-					query: 'tag:asia',
-					dispopts: '',
-					sort: 'date',
-					title: 'Asia',
-					unreadcount: 0,
-					classname: null
-				}, {
-					id: 5,
-					offsetlimit: '0,50',
-					querydefid: 5,
-					dateread: {
-						date: '2014-01-06 18:05:32.000000',
-						timezone_type: 3,
-						timezone: 'Europe/London'
-					},
-					islocked: false,
-					isprimary: false,
-					perpage: 50,
-					query: 'tag:economy',
-					dispopts: '',
-					sort: 'date',
-					title: 'Economy',
-					unreadcount: 0,
-					classname: null
-				}, {
-					id: 6,
-					offsetlimit: '0,50',
-					querydefid: 6,
-					dateread: {
-						date: '2014-01-06 18:05:32.000000',
-						timezone_type: 3,
-						timezone: 'Europe/London'
-					},
-					islocked: false,
-					isprimary: false,
-					perpage: 50,
-					query: 'tag:companies',
-					dispopts: '',
-					sort: 'date',
-					title: 'Companies',
-					unreadcount: 0,
-					classname: null
-				}]
-			}
+				}],
+			},
 		);
 	},
 
