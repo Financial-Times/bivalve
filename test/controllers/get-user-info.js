@@ -1,10 +1,16 @@
 const {assert} = require('chai');
+const sinon = require('sinon');
+const makeControllerMeta = require('../../test-util/make-controller-meta');
+
 const getUserInfo = require('../../lib/controllers/get-user-info');
 
 exports['getUserInfo controller'] = {
 	async 'should return dummy data'() {
 		assert.deepEqual(
-			await getUserInfo(),
+			await getUserInfo(
+				[],
+				makeControllerMeta()
+			),
 			{
 				id: 1,
 				pseudonym: 'Anonymous User',
@@ -121,6 +127,17 @@ exports['getUserInfo controller'] = {
 					classname: null
 				}]
 			}
+		);
+	},
+
+	async 'should set cache-control header to one day'() {
+		const meta = makeControllerMeta();
+		await getUserInfo([], meta);
+
+		sinon.assert.calledWith(
+			meta.res.setHeader,
+			'cache-control',
+			'public, max-age=86400, must-revalidate, no-transform'
 		);
 	},
 };
