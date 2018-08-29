@@ -11,7 +11,7 @@ module.exports = class ResultMapper {
 		this._fields = options.fields || this._defaultFields();
 	}
 
-	_defaultFields() {
+	_defaultFields(): string[] {
 		return Object.getOwnPropertyNames(
 			this.constructor.prototype
 		).filter(name =>

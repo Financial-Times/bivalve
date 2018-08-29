@@ -28,7 +28,7 @@ const getUserInfoController: Controller<GetUserInfo, GetUserInfoResult> = async 
 			sort: 'date',
 			title: 'All',
 			unreadcount: 0,
-			classname: null		
+			classname: null
 		}],
 	};
 };
