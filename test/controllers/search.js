@@ -24,9 +24,17 @@ const searchFixture = {
 	},
 };
 
+const makeSearchMock = host =>
+
 exports['search controller'] = {
 	async before() {
 		this.elasticSearchHost = await resolveCname('next-elastic.ft.com');
+	},
+
+	beforeEach() {
+		nock(`https://${this.elasticSearchHost}`)
+			.post('/content/item/_search')
+			.reply(200, searchFixture);
 	},
 
 	afterEach() {
@@ -34,10 +42,6 @@ exports['search controller'] = {
 	},
 
 	async 'should get stuff from Elastic Search and turn it into stuff'() {
-		const es = nock(`https://${this.elasticSearchHost}`)
-			.post('/content/item/_search')
-			.reply(200, searchFixture);
-
 		const {results} = await search({}, makeControllerMeta());
 
 		results.every(result => {
@@ -46,10 +50,6 @@ exports['search controller'] = {
 	},
 
 	async 'should pass outputfields to Item, always outputting sortval'() {
-		const es = nock(`https://${this.elasticSearchHost}`)
-			.post('/content/item/_search')
-			.reply(200, searchFixture);
-
 		const {results} = await search({
 			outputfields: {
 				id: true
