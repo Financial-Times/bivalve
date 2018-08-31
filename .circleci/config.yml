@@ -1,5 +1,5 @@
 # generator: n-circle2-cli
-# template: app
+# template: app - stripped back
 
 references:
 
@@ -7,11 +7,6 @@ references:
     working_directory: ~/project/build
     docker:
       - image: circleci/node:8-browsers
-
-  container_config_lambda_node8: &container_config_lambda_node8
-    working_directory: ~/project/build
-    docker:
-      - image: lambci/lambda:build-nodejs8.10
 
   workspace_root: &workspace_root
     ~/project
@@ -35,25 +30,6 @@ references:
   restore_npm_cache: &restore_npm_cache
     restore_cache:
         <<: *npm_cache_keys
-
-  filters_only_master: &filters_only_master
-    branches:
-      only: master
-
-  filters_ignore_master: &filters_ignore_master
-    branches:
-      ignore: master
-
-  filters_ignore_tags: &filters_ignore_tags
-    tags:
-      ignore: /.*/
-
-  filters_version_tag: &filters_version_tag
-    tags:
-      only:
-        - /^v?\d+\.\d+\.\d+(?:-beta\.\d+)?$/
-    branches:
-      ignore: /.*/
 
 version: 2
 
@@ -115,9 +91,7 @@ workflows:
 
   build-test:
     jobs:
-      - build:
-          filters:
-            <<: *filters_ignore_master
+      - build
       - test:
           requires:
             - build
