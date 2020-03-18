@@ -28,7 +28,7 @@ const makeSearchMock = host =>
 
 exports['search controller'] = {
 	async before() {
-		this.elasticSearchHost = await resolveCname('next-elastic.glb.ft.com');
+		this.elasticSearchHost = await resolveCname('next-elasticsearch.nlb.ft.com');
 	},
 
 	beforeEach() {
