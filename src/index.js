@@ -49,8 +49,8 @@ const about = {
 	serviceTier: 'bronze',
 	_hostname: process.env.HEROKU_DYNO_ID || os.hostname(),
 	contacts: [{
-		name: 'Matt Brennan',
-		email: 'matthew.brennan@ft.com',
+		name: 'Kara Brightwell',
+		email: 'kara.brightwell@ft.com',
 	}],
 };
 
