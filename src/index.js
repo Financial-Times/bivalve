@@ -49,8 +49,8 @@ const about = {
 	serviceTier: 'bronze',
 	_hostname: process.env.HEROKU_DYNO_ID || os.hostname(),
 	contacts: [{
-		name: 'Kara Brightwell',
-		email: 'kara.brightwell@ft.com',
+		name: 'Customer Products App team',
+		email: 'ftmobile@ft.com',
 	}],
 };
 
